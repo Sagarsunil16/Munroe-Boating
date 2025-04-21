@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button } from './components/ui/button'
 import Home from './pages/Home'
+import Hero from './components/Hero'
 const App = () => {
   return (
     <div>
     <Home/>
-    {/* <Hero/> */}
+    <Hero/>
     </div>
   )
 }
