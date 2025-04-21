@@ -120,6 +120,11 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Poppins', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    /* overflow-y: hidden; */
+
+    
   }
 }
 

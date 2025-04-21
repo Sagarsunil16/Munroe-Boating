@@ -16,19 +16,19 @@ const Hero = () => {
 
   const slides = [
     {
-      image: '/images/munroe-island-houseboat.jpg',
+      image: '/images/MunroeIsland-canoeing.jpg',
       alt: 'Munroe Island houseboat tour in Munroethuruthu',
       title: 'Discover Munroe Island Boating',
       description: 'Sail through the serene backwaters of Munroethuruthu, Kerala’s hidden gem.',
     },
     {
-      image: '/images/munroe-island-sunset.jpg',
+      image: '/images/munroeIsland1-wallpaper.jpg',
       alt: 'Sunset cruise in Munroethuruthu backwaters',
       title: 'Unforgettable Sunset Cruises',
       description: 'Experience breathtaking sunsets on our exclusive Munroe Island boat tours.',
     },
     {
-      image: '/images/munroe-island-fishing.jpg',
+      image: '/images/munroeIsland-wallpaper.jpeg',
       alt: 'Fishing trip in Munroe Island, Munroethuruthu',
       title: 'Authentic Fishing Adventures',
       description: 'Join local fishermen for a unique Munroethuruthu boating experience.',
@@ -46,7 +46,7 @@ const Hero = () => {
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-center">
+           <div className="absolute inset-0 bg-black flex items-center justify-center text-white text-center">
               <div className="px-4">
                 <h1 className="text-5xl md:text-6xl font-bold mb-4">{slide.title}</h1>
                 <p className="text-xl md:text-2xl mb-6 max-w-2xl mx-auto">{slide.description}</p>
