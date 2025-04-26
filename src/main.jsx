@@ -9,10 +9,13 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import App from './App.jsx'
+import { BrowserRouter } from 'react-router-dom';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <BrowserRouter>
     <MantineProvider theme={{ colors: { teal: ['#0D9488'] } }}>
     <App />
     </MantineProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
