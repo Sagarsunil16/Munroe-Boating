@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import * as Yup from 'yup';
 import { Mail, User, Users, Calendar, Package } from 'lucide-react';
+import axios from 'axios';
 
 const Booking = () => {
+  const [submissionStatus, setSubmissionStatus] = useState(null);
+
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
       phone: '',
       date: null,
-      package: '',
+      selectedPackage: '',
       guests: 1,
       message: '',
     },
@@ -20,15 +23,26 @@ const Booking = () => {
       email: Yup.string().email('Invalid email address').required('Email is required'),
       phone: Yup.string().matches(/^[0-9]{10}$/, 'Phone number must be 10 digits').required('Phone number is required'),
       date: Yup.date().nullable().required('Booking date is required'),
-      package: Yup.string().required('Please select a package'),
+      selectedPackage: Yup.string().required('Please select a package'),
       guests: Yup.number()
         .min(1, 'At least 1 Guest is required')
         .required('Number of guests is required'),
       message: Yup.string(),
     }),
-    onSubmit: (values) => {
-      console.log('Booking Submitted', values);
-      formik.resetForm();
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        const response = await axios.post('http://localhost:3000/api/booking', values);
+        console.log('Booking Submitted:', response.data);
+        setSubmissionStatus('success');
+        formik.resetForm();
+        setTimeout(() => setSubmissionStatus(null), 3000); // Clear status after 3 seconds
+      } catch (error) {
+        console.error('Submission Error:', error);
+        setSubmissionStatus('error');
+        setTimeout(() => setSubmissionStatus(null), 3000);
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
@@ -122,6 +136,31 @@ const Booking = () => {
                   <p className="mt-1 text-sm text-red-500">{formik.errors.email}</p>
                 )}
               </div>
+              {/* Phone */}
+              <div className="mb-4 relative">
+                <label htmlFor="phone" className="block text-sm font-semibold text-gray-200">
+                  Phone Number
+                </label>
+                <div className="relative">
+                  <Mail
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={18}
+                    aria-hidden="true"
+                  />
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    {...formik.getFieldProps('phone')}
+                    className={`mt-1 block w-full pl-10 rounded-md border-gray-600 bg-gray-900 text-white shadow-sm focus:border-gray-500 focus:ring-gray-500 transition-colors duration-200 ${
+                      formik.touched.phone && formik.errors.phone ? 'border-red-500' : ''
+                    }`}
+                  />
+                </div>
+                {formik.touched.phone && formik.errors.phone && (
+                  <p className="mt-1 text-sm text-red-500">{formik.errors.phone}</p>
+                )}
+              </div>
               {/* Date */}
               <div className="mb-4 relative">
                 <label htmlFor="date" className="block text-sm font-semibold text-gray-200">
@@ -173,6 +212,7 @@ const Booking = () => {
                     <option value="houseboat">Houseboat Tour</option>
                     <option value="speedboat">Speedboat Adventure</option>
                     <option value="fishing">Fishing Trip</option>
+                    <option value="kayaking">Kayaking Adventure</option>
                   </select>
                 </div>
                 {formik.touched.package && formik.errors.package && (
@@ -205,6 +245,17 @@ const Booking = () => {
                   <p className="mt-1 text-sm text-red-500">{formik.errors.guests}</p>
                 )}
               </div>
+              {/* Submission Feedback */}
+              {submissionStatus === 'success' && (
+                <p className="mb-4 text-sm text-green-500 text-center">
+                  Booking submitted successfully!
+                </p>
+              )}
+              {submissionStatus === 'error' && (
+                <p className="mb-4 text-sm text-red-500 text-center">
+                  Failed to submit booking. Please try again.
+                </p>
+              )}
               {/* Submit Button */}
               <div className="text-center">
                 <motion.button

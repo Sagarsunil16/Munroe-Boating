@@ -31,7 +31,7 @@ const Hero = () => {
       description: 'Experience breathtaking sunsets on our exclusive Munroe Island boat tours.',
     },
     {
-      image: '/images/munroeIsland-wallpaper.jpeg',
+      image: '/images/munroeIsland-wallpaper.jpg',
       alt: 'Fishing trip in Munroe Island, Munroethuruthu',
       title: 'Authentic Fishing Adventures',
       description: 'Join local fishermen for a unique Munroethuruthu boating experience.',
@@ -40,24 +40,19 @@ const Hero = () => {
 
   return (
     <section id="home" className="h-screen relative bg-black text-white">
-      {/* Subtle Wave Background */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23FFFFFF" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      ></div>
+    
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative h-screen">
-            <img
-              src={slide.image}
-              alt={slide.alt}
-              className="w-full h-full object-cover opacity-50"
-              loading="lazy"
-            />
+            <div className="relative h-full">
+              <img
+                src={slide.image}
+                alt={slide.alt}
+                className="w-full h-full object-cover opacity-50"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/20"></div>
+            </div>
             <div className="absolute inset-0 flex items-center justify-center text-center z-10">
               <div className="px-4 max-w-6xl mx-auto">
                 <motion.div
